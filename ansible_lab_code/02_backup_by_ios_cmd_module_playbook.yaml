@@ -1,0 +1,21 @@
+---
+# Play book to download router configuration
+- name: Get Device running configs
+  hosts: all,!nxos
+
+  tasks:
+    # First Task to get the running configuration from devices
+    - name: Running 'show running-config' command
+      # Using ios_command module 
+      ios_command:
+        commands:
+          - show running-config
+      # Saving the output of above CLI to a variable named show_run_output
+      register: show_run_output
+
+    # Secong Task to parse returned JSON and save to backup directory on control node
+    - name: Saving running config output to local directory with timestamp
+      copy:
+        # Copy module to copy show_run_output content to device specific file with timestamp
+        content: "{{ show_run_output.stdout[0] }}"
+        dest: "/etc/ansible/backups_by_ios_cmd/{{ inventory_hostname}}_{{ lookup('pipe','date +%Y-%m-%d_%H-%M-%S') }}.txt"

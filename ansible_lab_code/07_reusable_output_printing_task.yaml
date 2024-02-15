@@ -1,0 +1,12 @@
+---
+# Reusable task to print the output_var 
+# Any playbook can import this task than
+# writting this mutiple places in playbooks
+- name: Play to print output to screen
+  debug:
+    var: output_var.stdout_lines
+
+
+
+
+

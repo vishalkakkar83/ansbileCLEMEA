@@ -1,0 +1,16 @@
+---
+# Playbook to configure GigabitEthernets on all devices
+# Jinja template is being used to prepare the configuraiton.
+# Number of interfaces to create is coming from group_vars/all.yml
+- name: configure Mutiple GigabitEthernet interfaces on target
+  gather_facts: false
+  connection: network_cli
+  hosts: xr
+
+  tasks:
+    - name: Configuring GigabitEthernets on XR
+      cisco.iosxr.iosxr_config:
+        src: 09_GigEs_creation_jinja_template.j2
+        match: none
+      when: ansible_network_os == "cisco.iosxr.iosxr"
+

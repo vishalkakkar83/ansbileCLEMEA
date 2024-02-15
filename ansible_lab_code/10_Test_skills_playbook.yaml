@@ -1,0 +1,9 @@
+---
+# Sample Playbook
+- name: Sample Playbook
+  gather_facts: false
+  connection: network_cli
+  hosts: xr
+
+  tasks:
+  - name:

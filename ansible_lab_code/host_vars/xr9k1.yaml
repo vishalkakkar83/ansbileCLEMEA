@@ -1,0 +1,16 @@
+---
+ansible_host: 198.18.1.14
+ID: 4
+
+new_hostname:
+  name: xr9k1-new
+
+routing_protocol: bgp
+automtion_no: 65001
+router_id: 14.14.14.14
+networks:
+  - 192.168.5.0
+  - 192.168.6.0
+  - 192.168.7.0
+
+

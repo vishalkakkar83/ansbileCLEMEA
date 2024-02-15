@@ -1,0 +1,7 @@
+---
+ansible_host: 198.18.1.11
+ID: 1
+
+new_hostname:
+  name: nxos1-new
+

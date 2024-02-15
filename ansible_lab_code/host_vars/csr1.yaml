@@ -1,0 +1,7 @@
+---
+ansible_host: 198.18.1.12
+ID: 2
+
+new_hostname:
+  name: csr1-new
+

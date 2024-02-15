@@ -1,0 +1,24 @@
+---
+# Play book to uddate router hostname, defined in host_vars
+- name: Update device hostname defined in host_vars
+  hosts: nxos,xr
+
+  tasks:
+
+    - name: Updating NXOS hostnames
+      # Using nxos_config module 
+      nxos_config:
+        lines:
+          # Usage of variable defined in host_vars/{hostname}.yml
+          - hostname {{ new_hostname.name }}
+        save_when: modified
+      when: ansible_network_os == "cisco.nxos.nxos"
+
+    - name: Updating XR hostnames
+      # Using iosxr_config  
+      cisco.iosxr.iosxr_config:
+        lines:
+          # Usage of variable defined in host_vars/{hostname}.yml
+          - hostname {{ new_hostname.name }}
+      when: ansible_network_os == "cisco.iosxr.iosxr"
+

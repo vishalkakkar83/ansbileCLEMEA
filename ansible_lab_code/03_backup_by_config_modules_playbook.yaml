@@ -1,0 +1,35 @@
+---
+# Another Play book to download router configuration
+- name: network wide backup
+  connection: network_cli
+
+  hosts: all
+  tasks:
+    - name: Backuping up current IOS config (ios)
+      # Using ios_config Module & backup parameter
+      cisco.ios.ios_config:
+        backup: yes
+        backup_options: 
+          dir_path: "{{ backup_location }}"
+      # When clause to run this task only for IOS devices
+      when: ansible_network_os == 'cisco.ios.ios'
+
+    - name: Backuping up current NXOS switch config (nxos)
+      # Using nxos_config Module & backup parameter
+      cisco.nxos.nxos_config:
+        backup: yes
+        backup_options: 
+          dir_path: "{{ backup_location }}"
+      # When clause to run this task only for NXOS devices
+      when: ansible_network_os == 'cisco.nxos.nxos'
+
+    - name: Backuping up current XR router config (XR)
+      # Using iosxr_config Module & backup parameter
+      cisco.iosxr.iosxr_config:
+        backup: yes
+        backup_options: 
+          dir_path: "{{ backup_location }}"
+      # When clause to run this task only for IOSXR devices
+      when: ansible_network_os == 'cisco.iosxr.iosxr'
+
+

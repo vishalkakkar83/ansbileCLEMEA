@@ -1,0 +1,13 @@
+[nxos]
+nxos1
+
+[ios]
+csr1 
+csr2
+ios1
+ios2
+iossw
+
+[xr]
+xr9k1
+xr9k2

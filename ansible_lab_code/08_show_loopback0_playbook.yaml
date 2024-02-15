@@ -1,0 +1,18 @@
+---
+# Play book to show Loopback0 configs from devices
+# by importing re-usable task 07_reusable_output_printing_play.yml
+- name: Get Loopback0 configuration
+  hosts: all
+
+  tasks:
+    # First Task to get the versions from devices
+    - name: Getting Loopback0 configs
+      # Using ios_command module 
+      ios_command:
+        commands:
+          - show running-config interface Loopback0
+      # Saving the output of above CLI to a variable named show_output
+      register: output_var
+ 
+    # Importing task defined externaly (another YAML)
+    - import_tasks: 07_reusable_output_printing_task.yaml

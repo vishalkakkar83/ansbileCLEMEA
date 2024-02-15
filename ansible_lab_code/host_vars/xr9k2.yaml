@@ -1,0 +1,6 @@
+---
+ansible_host: 198.18.1.24
+ID: 5
+
+new_hostname:
+  name: xr9k2-new

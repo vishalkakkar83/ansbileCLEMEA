@@ -1,0 +1,4 @@
+ansible_connection: ansible.netcommon.network_cli
+ansible_network_os: cisco.iosxr.iosxr
+
+interfaces_to_change: [GigabitEthernet0/0/0/0, GigabitEthernet0/0/0/1, GigabitEthernet0/0/0/2]

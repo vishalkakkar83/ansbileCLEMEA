@@ -1,0 +1,37 @@
+---
+# Playbook to configure Loopback0 network wide
+# with loopback ip address computed on the fly using "ID" variable
+# defined in the host_vars/{hostname}.yml
+- name: Configuring interface loopback0
+  gather_facts: false
+  connection: network_cli
+  hosts: all
+
+  tasks:
+    - set_fact:
+        ip_addr: "{{ '172.16.0.0/24' | ansible.utils.nthhost(ID) }}"
+  #  - debug: var=ip_addr
+    - name: ip config for loopback (ios)
+      cisco.ios.ios_config:
+        lines:
+        - description anchor interface
+        - ip address {{ ip_addr }} 255.255.255.255
+        parents: interface Loopback0
+      when: ansible_network_os == "cisco.ios.ios" 
+
+    - name: ip config for loopback (XR)
+      cisco.iosxr.iosxr_config:
+        lines:
+        - description anchor interface
+        - ip address {{ ip_addr }} 255.255.255.255
+        parents: interface Loopback0
+      when: ansible_network_os == "cisco.iosxr.iosxr"
+
+    - name: ip config for loopback (NXOS)
+      nxos_config:
+        lines:
+        - description anchor interface
+        - ip address {{ ip_addr }} 255.255.255.255
+        parents: interface Loopback0
+      when: ansible_network_os == "cisco.nxos.nxos"
+

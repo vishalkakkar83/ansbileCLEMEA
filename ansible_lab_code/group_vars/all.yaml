@@ -1,0 +1,10 @@
+---
+ansible_user: cisco
+ansible_password: cisco
+
+backup_location: /etc/ansible/backups_by_config_module
+
+
+GigECustomCreation:
+  gige_intf_first: 10
+  gige_intf_last: 15

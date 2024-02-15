@@ -1,0 +1,22 @@
+---
+
+# Play book to show version of all IOS & XRs
+- name: Get Device versions
+  hosts: all,!nxos
+
+  tasks:
+    # First Task to get the versions from devices
+    - name: Running 'show version' command
+      # Using ios_command module 
+      ios_command:
+        commands:
+          - show version
+      # Saving the output of above CLI to a variable named show_ver_output
+      register: show_ver_output
+    
+    # Second Task to parse returned JSON and extract only relevant information for user
+    - name: Extracting only relevant information from 'show version' response
+      debug:
+        # Extracting Only the first line for show version CLI output
+        var: show_ver_output.stdout_lines[0][0]
+

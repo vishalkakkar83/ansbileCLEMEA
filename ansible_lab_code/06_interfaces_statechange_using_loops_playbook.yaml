@@ -1,0 +1,26 @@
+---
+# Play book to enable/disable GigabitEthernet interfaces on XR
+# interfaces_to_enable list is defined in group_vars/xr.yml
+- name: Updating GigabitEthernet operational state
+  hosts: xr
+  gather_facts: false
+
+  tasks:
+    - name: UnShuting interfaces on XRs
+      cisco.iosxr.iosxr_interfaces:
+       config: 
+       - name: "{{ item }}"
+         enabled: true
+      with_items: "{{ interfaces_to_change }}"
+      when: state == "enable"
+
+    - name: Shuting interfaces on XRs
+      cisco.iosxr.iosxr_interfaces:
+       config: 
+       - name: "{{ item }}"
+         enabled: false
+      with_items: "{{ interfaces_to_change }}"
+      when: state == "disable"
+
+
+
